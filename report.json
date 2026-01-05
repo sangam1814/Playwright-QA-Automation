@@ -1,0 +1,50 @@
+{
+  "steps": [
+    {
+      "step": 0,
+      "url": "https://www.flipkart.com/search?q=laptop&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off",
+      "action": "search",
+      "result": "Searched laptop"
+    },
+    {
+      "step": 1,
+      "url": "https://www.flipkart.com/search?q=laptop&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off",
+      "action": "scroll",
+      "result": "Scrolled"
+    },
+    {
+      "step": 2,
+      "url": "https://www.flipkart.com/search?q=laptop&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off",
+      "action": "scroll",
+      "result": "Scrolled"
+    },
+    {
+      "step": 3,
+      "url": "https://www.flipkart.com/search?q=laptop&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off",
+      "action": "click_product",
+      "result": "Clicked product https://www.flipkart.com/lenovo-loq-amd-ryzen-5-quad-core-72"
+    },
+    {
+      "step": 4,
+      "url": "https://www.flipkart.com/search?q=laptop&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off",
+      "action": "scroll",
+      "result": "Scrolled"
+    },
+    {
+      "step": 5,
+      "url": "https://www.flipkart.com/search?q=laptop&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off",
+      "action": "click_product",
+      "result": "Clicked product https://www.flipkart.com/acer-aspire-3-amd-ryzen-quad-core-7"
+    }
+  ],
+  "clicked_products": [
+    {
+      "url": "https://www.flipkart.com/lenovo-loq-amd-ryzen-5-quad-core-7235hs-24-gb-512-gb-ssd-windows-11-home-4-graphics-nvidia-geforce-rtx-3050a-15arp9-gaming-laptop/p/itmcc4401a49ffdd?pid=COMHBZVGPTGSKWMH&lid=LSTCOMHBZVGPTGSKWMHLCFZW6&marketplace=FLIPKART&q=laptop&store=6bo%2Fb5g&srno=s_1_11&otracker=search&otracker1=search&fm=organic&iid=en_BiZsMcCZxqjP4nBe4Rf7JR0HiXmq6wHr0m48kGjhD4VOBhlj14Bel6mZLd2k_npcGl8Bk24OoZRaH6XGQymFM-vN4Mn-dv-pi277bRzMbnY%3D&ppt=hp&ppn=homepage&ssid=eg0auz4upc0000001767644476913&qH=312f91285e048e09",
+      "screenshot": "screenshots/product_1.png"
+    },
+    {
+      "url": "https://www.flipkart.com/acer-aspire-3-amd-ryzen-quad-core-7330u-8-gb-512-gb-ssd-windows-11-home-as15-42-a325-thin-light-laptop/p/itmdaf15e01a1d1a?pid=COMH397X2KJ8XCHR&lid=LSTCOMH397X2KJ8XCHRBDEAS1&marketplace=FLIPKART&q=laptop&store=6bo%2Fb5g&srno=s_1_15&otracker=search&otracker1=search&fm=organic&iid=abe96dae-6d27-43e8-ba72-96c18ce1828b.COMH397X2KJ8XCHR.SEARCH&ppt=hp&ppn=homepage&ssid=eg0auz4upc0000001767644476913&qH=312f91285e048e09",
+      "screenshot": "screenshots/product_2.png"
+    }
+  ]
+}

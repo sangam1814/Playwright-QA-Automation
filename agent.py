@@ -2,23 +2,23 @@ from playwright.sync_api import sync_playwright
 import time
 from urllib.parse import urljoin
 import random
+import json, os                         # <-- ADDED
+
+os.makedirs("screenshots", exist_ok=True)  # <-- ADDED
 
 def human_wait(min_s=0.3, max_s=1.2):
     time.sleep(random.uniform(min_s, max_s))
 
-# ================== ADDED ==================
 def focus_page(page):
-    """Force focus inside webpage so address bar is not highlighted"""
-    page.bring_to_front()                     # <-- ADDED
+    page.bring_to_front()
     time.sleep(0.2)
-    page.mouse.move(400, 400)                 # <-- ADDED (move mouse inside page)
+    page.mouse.move(400, 400)
     time.sleep(0.2)
     page.evaluate("""
         document.body.focus();
         document.activeElement && document.activeElement.blur();
-    """)                                      # <-- ADDED
+    """)
     time.sleep(0.2)
-# ==========================================
 
 STATE = {
     "searched": False,
@@ -28,24 +28,24 @@ STATE = {
     "scroll_offset": 0,
 }
 
+REPORT = {                              # <-- ADDED
+    "steps": [],
+    "clicked_products": []
+}
+
 SKIP = ["login", "account", "signup", "register", "cart", "help", "privacy", "terms", "pr?"]
 
 def decide():
     if not STATE["searched"]:
         return "search"
-
     if STATE["initial_scrolls"] < 2:
         return "scroll"
-
     if len(STATE["clicked_products"]) == 0:
         return "click_product"
-
     if len(STATE["clicked_products"]) == 1 and not STATE["post_click_scroll"]:
         return "scroll"
-
     if len(STATE["clicked_products"]) == 1 and STATE["post_click_scroll"]:
         return "click_product"
-
     return "stop"
 
 def scroll(page, amount=1500):
@@ -91,6 +91,14 @@ def click_visible_product(page):
         new_page.wait_for_load_state()
         time.sleep(2)
 
+        screenshot = f"screenshots/product_{len(STATE['clicked_products'])+1}.png"  # <-- ADDED
+        new_page.screenshot(path=screenshot)                                         # <-- ADDED
+
+        REPORT["clicked_products"].append({                                           # <-- ADDED
+            "url": new_page.url,
+            "screenshot": screenshot
+        })
+
         new_page.close()
         time.sleep(1)
 
@@ -109,17 +117,13 @@ def act(page, action):
         box = page.locator("input[name='q']")
         box.click()
         human_wait(0.4, 0.8)
-
         for ch in "laptop":
             box.type(ch)
             human_wait(0.05, 0.15)
-
         human_wait(0.3, 0.6)
         box.press("Enter")
-
         human_wait(1.5, 2.5)
-        focus_page(page)        # <-- ADDED (remove focus from address bar after search)
-
+        focus_page(page)
         STATE["searched"] = True
         return "Searched laptop"
 
@@ -142,8 +146,7 @@ def run():
         page = browser.new_page()
         page.goto("https://www.flipkart.com")
         page.wait_for_load_state()
-
-        focus_page(page)        # <-- ADDED (remove address bar focus at start)
+        focus_page(page)
 
         for step in range(10):
             action = decide()
@@ -153,9 +156,22 @@ def run():
                 break
 
             result = act(page, action)
+
+            REPORT["steps"].append({             # <-- ADDED
+                "step": step,
+                "url": page.url,
+                "action": action,
+                "result": result
+            })
+
             print(f"  Result: {result}")
 
         browser.close()
+
+    with open("report.json", "w") as f:          # <-- ADDED
+        json.dump(REPORT, f, indent=2)
+
+    print("\nSaved report.json")                 # <-- ADDED
 
 if __name__ == "__main__":
     run()
