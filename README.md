@@ -1,4 +1,3 @@
-# Semi-Autonomous Web Interaction Agent
 
 ## Overview
 This project implements a semi-autonomous browser agent that can open a website, observe its state, make decisions at runtime, and interact with the page using heuristics and internal state.
